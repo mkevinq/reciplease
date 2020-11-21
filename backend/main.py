@@ -3,9 +3,21 @@ import json
 import requests
 import os
 import urllib.parse
+import numpy as np
+
+from io import BytesIO
 from flask import Flask, request, jsonify
 from getKey import rapidAPI, IEspoonacular
 
+import tensorflow as tf
+from tensorflow import keras
+from keras.preprocessing import image
+from keras.applications.inception_resnet_v2 import preprocess_input, decode_predictions
+from PIL import Image
+
+model = keras.models.load_model('model-training/inception')
+with open("backend/class_names.json", "r") as file:
+    class_names = json.loads(file.read())
 app = Flask(__name__)
 
 """
@@ -58,6 +70,31 @@ def detect_ingredients(productName):
     else:
         print(response.status_code)
         return 'Unable to detect ingredient type'
+
+@app.route("/api/detectIngredientsInImage", methods=["POST"])
+def detect_ingredients_in_image():
+    img = Image.open(BytesIO(base64.b64decode(request.form["imgb64"])))
+    img = img.convert("RGB")
+    img = img.resize((200, 200), Image.NEAREST)
+    img = image.img_to_array(img)
+    img = tf.expand_dims(img, 0)
+    img = preprocess_input(img)
+
+    predictions = model.predict(img)
+    predictions = decode_predictions(predictions)
+
+    pred_processed = []
+
+    for prediction in predictions:
+        items = []
+        for item in prediction:
+            item = [x for x in item]
+            item[2] = float(item[2])
+            items.append(item)
+        pred_processed.append(items)
+
+    return jsonify(predictions=pred_processed)
+    
 
 @app.route("/api/getRecipe/<id>", methods=["GET"])
 def get_recipe(r_id):
