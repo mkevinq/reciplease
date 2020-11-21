@@ -13,23 +13,45 @@ class LiveCamera extends Component {
     componentDidMount() {
         console.log('Starting camera.');
         Quagga.init({
+            numOfWorkers: 4,
+            locate: true,
+            frequency: 10,
             inputStream : {
-              name : "Live",
-              type : "LiveStream",
-              target: document.querySelector('#yourElement')    // Or '#yourElement' (optional)
+                name : "Live",
+                type : "LiveStream",
+                target: document.querySelector('#yourElement'),    // Or '#yourElement' (optional)
+                size: 800
             },
             decoder : {
-              readers : ["code_128_reader"]
+              readers : ["upc_reader"]
             }
             }, function(err) {
-              if (err) {
-                  console.log(err);
-                  return
-              }
-              console.log("Initialization finished. Ready to start");
-              Quagga.start();
+            if (err) {
+                console.log(err);
+                return
+            }
+            console.log("Initialization finished. Ready to start");
+            
+            //Use torch and zoom if necessary
+            // var track = Quagga.CameraAccess.getActiveTrack();
+            // var capabilities = {};
+            // if (typeof(track.getCapabilities) === 'function') {
+            //     capabilities = track.getCapabilities();
+            // }
+            // track.applyConstraints({
+            //     advanced: [{torch: true}, {zoom: true}]
+            // })
+            // .catch(e => console.log(e));
+            // console.log('Capabilities complete.');
+            
+            Quagga.start();
+            console.log("Started.");
         });
         
+        Quagga.onProcessed((data) => {
+            console.log('Processed image.');
+        });
+
         Quagga.onDetected((data) => {
             console.log('Code: ' + data.codeResult.code);
         });
