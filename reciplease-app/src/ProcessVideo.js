@@ -255,9 +255,12 @@ var App = {
     lastResult : null
 };
 
+console.log('Before app init');
 App.init();
+console.log('After app init');
 
 Quagga.onProcessed(function(result) {
+    console.log('Processing image');
     var drawingCtx = Quagga.canvas.ctx.overlay,
         drawingCanvas = Quagga.canvas.dom.overlay;
 
@@ -282,6 +285,7 @@ Quagga.onProcessed(function(result) {
 });
 
 Quagga.onDetected(function(result) {
+    console.log('Barcode detected');
     var code = result.codeResult.code;
 
     if (App.lastResult !== code) {
