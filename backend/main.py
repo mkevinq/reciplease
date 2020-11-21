@@ -8,6 +8,10 @@ from getKey import rapidAPI, IEspoonacular
 
 app = Flask(__name__)
 
+"""
+process: user uploads pic or barcode --> those are scanned and the proper food is returned --> we detect ingredients --> based on those, find recipes --> get link and all ingredients
+"""
+
 @app.route("/api/barcodeLookup/<barcode>", methods=["GET"])
 def barcode_lookup(barcode):
     url = "https://barcode-monster.p.rapidapi.com/" + barcode
@@ -54,15 +58,18 @@ def detect_ingredients(productName):
         print(response.status_code)
         return 'Unable to detect ingredient type'
 
-@app.route("/api/getRecipeLink/<id>", methods=["GET"])
-def get_recipe_link(r_id):
+@app.route("/api/getRecipe/<id>", methods=["GET"])
+def get_recipe(r_id):
     url = 'https://api.spoonacular.com/recipes/' + str(r_id) + '/information/?includeNutrition=false&apiKey=' + IEspoonacular
     print(url)
     response = requests.request("GET", url)
     if response.status_code == 200:
         recipeInfo = response.json()
         link = recipeInfo['sourceUrl']
-        return link
+        ingredients = []
+        for ingredient in recipeInfo['extendedIngredients']:
+            ingredients.append(ingredient['name'])
+        return {'link': link, 'ingredients': ingredients}
     else:
         return 'No link'
 
@@ -70,5 +77,5 @@ if __name__ == "__main__":
     """ingredients = detect_ingredients('Goldfish Baked Crackers')
     print(ingredients)"""
     # for testing purposes
-    """link = get_recipe_link(716429)
-    print(link)"""
+    info = get_recipe(1)
+    print(info)
