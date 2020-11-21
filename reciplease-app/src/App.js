@@ -71,4 +71,12 @@ function ImageSubmit() {
   );
 }
 
+function liveCamera() {
+  return (
+    <div id="interactive" class="viewport">
+      <script src='ProcessVideo.js' type='text/javascript'></script>
+    </div>
+  );
+}
+
 export default App;
