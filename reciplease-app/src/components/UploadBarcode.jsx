@@ -4,6 +4,7 @@ import './UploadBarcode.css';
 
 function UploadBarcode(props) {
     //Submission form for images (returns the code)
+    var hidden = 'hidden';
     function processImage(base64Img) {
       Quagga.decodeSingle({
         decoder: {
@@ -36,17 +37,22 @@ function UploadBarcode(props) {
         fr.readAsDataURL(file);
       }
     }
+
+    function search (){
+        document.getElementById("search").style.visibility = "visible";
+    }
   
     return (
       <form>
+        <div class="title">
+            <h1>Upload Barcode</h1>
+        </div>
         <div class="input-field">
-            <button type="button">Upload Barcode</button>
-            <button type="button" class="icon-barcode button scan" onClick={convertTo64}>&nbsp;Search</button>
-            <input type="file" id="file" capture/>
+            <input type="file" id="file" onChange={search}/>
+            <button type="button" id="search" style={{visibility: "hidden"}}class="icon-barcode button scan" onClick={convertTo64}>&nbsp;Search</button>
         </div>
       </form>
     );
-
 }
 
 export default UploadBarcode;

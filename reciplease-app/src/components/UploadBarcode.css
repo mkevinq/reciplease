@@ -1,0 +1,15 @@
+.title {
+    padding-left: 2em;
+}
+
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    width: 2em;
+}
+
+.button {
+    border: none;
+    
+}
