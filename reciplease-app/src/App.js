@@ -3,19 +3,28 @@ import ScanBarcode from './components/ScanBarcode';
 import ScanFood from './components/ScanFood';
 import UploadBarcode from './components/UploadBarcode';
 import './App.css';
+import logo from './assets/reciplease-logo.png';
+
+// need to create a display recipes function to make a <Recipe> card for each recipe
 
 function App() {
   return (
     <div className="App">
-      <div className="banner">
-        Reciplease
-      </div>
 
+      <div className="content">
       <div className="description">
         <h1>Welcome to Reciplease!</h1>
       </div>
 
       <UploadBarcode></UploadBarcode>
+      </div>
+      
+      <div className="banner">
+        <div className="logo-div">
+        <img className="logo" src={logo}></img>
+        </div>
+        Reciplease
+      </div>
 
     </div>
   );
