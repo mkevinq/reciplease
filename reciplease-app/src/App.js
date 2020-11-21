@@ -1,4 +1,7 @@
-import logo from './logo.svg';
+import Ingredients from './components/Ingredients';
+import ScanBarcode from './components/ScanBarcode';
+import ScanFood from './components/ScanFood';
+import UploadBarcode from './components/UploadBarcode';
 import './App.css';
 import Quagga from 'quagga';
 import LiveCamera from './components/LiveCamera.jsx';
@@ -16,45 +19,14 @@ function App() {
 
       <ImageSubmit/>
       <LiveCamera/>
+      <UploadBarcode></UploadBarcode>
+
     </div>
   );
 }
 
-//Submission form for images (returns the code)
+
 function ImageSubmit() {
-  function processImage(base64Img) {
-    Quagga.decodeSingle({
-      decoder: {
-        readers: ["ean_reader"] // List of active readers
-      },
-      locate: true, // try to locate the barcode in the image
-      src: base64Img // or 'data:image/jpg;base64,' + data (the base64 image)
-    }, function(result){
-      if(result.codeResult) {
-        console.log("result", result.codeResult.code);
-      } else {
-        console.log("not detected");
-      }
-    });
-  }
-
-  //Coverts the selected file to base-64
-  function convertTo64(event) {
-    const file = document.getElementById('file').files[0];
-    var filename;
-    console.log('Test: ' + file);
-    if (FileReader && file) {
-      var fr = new FileReader();
-      console.log('Before onload');
-      fr.onloadend = function () {
-          filename = fr.result;
-          console.log('Test sequel: ' + filename);
-          processImage(filename);
-      }
-      fr.readAsDataURL(file);
-    }
-  }
-
   return (
     <form>
       <div class="input-field">
