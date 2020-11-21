@@ -1,14 +1,42 @@
-.title {
-    padding-left: 2em;
-} 
-
-
 .input-field {
     display: block;
     width: 2em;
+    padding: 10px; 
 }  
 
+input[type="file"] {
+    display: none;
+}
+
+.file-upload {
+    background-color: white;
+    border: 0.2em solid green;
+    color: green;
+    padding: 0.8em 2em;
+    border-radius: 1em;
+}
+
+.file-upload:hover {
+    background-color: green;
+    color: white;
+    padding: 0.8em 2em;
+    border-radius: 1em;
+}
+
+
 .button {
-    
-    
+    margin-top: 2em;
+    background-color: white;
+    border: 0.2em solid green;
+    color: green;
+    padding: 1em 2.6em;
+    border-radius: 1em;
 } 
+
+.button:hover {
+    background-color: green;
+    color: white;
+    padding: 1em 2.6em;
+    border-radius: 1em;
+} 
+

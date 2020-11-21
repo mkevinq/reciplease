@@ -48,6 +48,9 @@ function UploadBarcode(props) {
             <h1>Upload Barcode</h1>
         </div>
         <div class="input-field">
+            <label for="file" class="file-upload">
+                Upload
+            </label>
             <input type="file" id="file" onChange={search}/>
             <button type="button" id="search" style={{visibility: "hidden"}}class="icon-barcode button scan" onClick={convertTo64}>&nbsp;Search</button>
         </div>
