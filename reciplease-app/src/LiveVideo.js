@@ -1,7 +1,6 @@
 import Quagga from 'quagga'; // ES6
 
-console.log('ProcessVideo.js script being read');
-alert('Hello World!');
+console.log('LiveVideo.js import safe');
 
 var resultCollector = Quagga.ResultCollector.create({
     capture: true,
@@ -301,3 +300,5 @@ Quagga.onDetected(function(result) {
         $("#result_strip ul.thumbnails").prepend($node);
     }
 });
+
+export default LiveVideo;
