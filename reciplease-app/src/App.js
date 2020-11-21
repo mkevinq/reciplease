@@ -2,9 +2,10 @@ import Ingredients from './components/Ingredients';
 import ScanBarcode from './components/ScanBarcode';
 import ScanFood from './components/ScanFood';
 import UploadBarcode from './components/UploadBarcode';
+import LiveCamera from './components/LiveCamera';
+import ImageSubmit from './components/ImageSubmit';
 import './App.css';
 import Quagga from 'quagga';
-import LiveCamera from './components/LiveCamera.jsx';
 
 function App() {
   return (
@@ -22,19 +23,6 @@ function App() {
       <UploadBarcode></UploadBarcode>
 
     </div>
-  );
-}
-
-
-function ImageSubmit() {
-  return (
-    <form>
-      <div class="input-field">
-          <button type="button">Upload Barcode</button>
-          <button type="button" class="icon-barcode button scan" onClick={convertTo64}>&nbsp;Search</button>
-          <input type="file" id="file" capture/>
-      </div>
-    </form>
   );
 }
 
