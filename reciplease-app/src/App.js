@@ -5,21 +5,15 @@ import Quagga from 'quagga';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to RECIPLEASE
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          REACT PAGE
-        </a>
-        <ImageSubmit/>
-      </header>
+      <div className="banner">
+        Reciplease
+      </div>
+
+      <div className="description">
+        <h1>Welcome to Reciplease!</h1>
+      </div>
+
+      <ImageSubmit/>
     </div>
   );
 }
@@ -62,13 +56,13 @@ function ImageSubmit() {
   return (
     <form>
       <div class="input-field">
-          <label for="isbn_input">EAN:</label>
-          <input id="isbn_input" class="isbn" type="text" />
-          <button type="button" class="icon-barcode button scan" onClick={convertTo64}>&nbsp;</button>
+          <button type="button">Upload Barcode</button>
+          <button type="button" class="icon-barcode button scan" onClick={convertTo64}>&nbsp;Search</button>
           <input type="file" id="file" capture/>
       </div>
     </form>
   );
+
 }
 
 export default App;
