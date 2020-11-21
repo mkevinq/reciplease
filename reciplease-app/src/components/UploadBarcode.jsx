@@ -13,7 +13,7 @@ function UploadBarcode(props) {
         locate: true, // try to locate the barcode in the image
         src: base64Img // or 'data:image/jpg;base64,' + data (the base64 image)
       }, function(result){
-        if(result.codeResult) {
+        if(result && result.codeResult) { //The first result is always NULL (not sure why though)
           console.log("result", result.codeResult.code);
         } else {
           console.log("not detected");
@@ -25,13 +25,10 @@ function UploadBarcode(props) {
     function convertTo64(event) {
       const file = document.getElementById('file').files[0];
       var filename;
-      console.log('Test: ' + file);
       if (FileReader && file) {
         var fr = new FileReader();
-        console.log('Before onload');
         fr.onloadend = function () {
             filename = fr.result;
-            console.log('Test sequel: ' + filename);
             processImage(filename);
         }
         fr.readAsDataURL(file);

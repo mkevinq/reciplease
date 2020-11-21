@@ -3,7 +3,6 @@ import ScanBarcode from './components/ScanBarcode';
 import ScanFood from './components/ScanFood';
 import UploadBarcode from './components/UploadBarcode';
 import LiveCamera from './components/LiveCamera';
-import ImageSubmit from './components/ImageSubmit';
 import './App.css';
 import logo from './assets/reciplease-logo.png';
 
@@ -12,15 +11,12 @@ import logo from './assets/reciplease-logo.png';
 function App() {
   return (
     <div className="App">
-
       <div className="content">
-      <div className="description">
-        <h1>Welcome to Reciplease!</h1>
-      </div>
-
-      <ImageSubmit/>
-      <LiveCamera/>
-      <UploadBarcode></UploadBarcode>
+        <div className="description">
+          <h1>Welcome to Reciplease!</h1>
+        </div>
+        <LiveCamera/>
+        <UploadBarcode/>
       </div>
       
       <div className="banner">
@@ -29,7 +25,6 @@ function App() {
         </div>
         Reciplease
       </div>
-
     </div>
   );
 }
