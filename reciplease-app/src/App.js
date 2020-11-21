@@ -1,6 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
 import Quagga from 'quagga';
+import { useEffect } from 'react';
+
+//Function that can be used to 'run' other js scripts
+const useScript = url => {
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = url;
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, [url]);
+};
 
 function App() {
   return (
@@ -19,6 +36,7 @@ function App() {
           REACT PAGE
         </a>
         <ImageSubmit/>
+        <LiveCamera/>
       </header>
     </div>
   );
@@ -71,10 +89,11 @@ function ImageSubmit() {
   );
 }
 
-function liveCamera() {
+function LiveCamera() {
+  useScript('ProcessVideo.js');
   return (
     <div id="interactive" class="viewport">
-      <script src='ProcessVideo.js' type='text/javascript'></script>
+      
     </div>
   );
 }

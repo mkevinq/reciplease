@@ -1,5 +1,8 @@
 import Quagga from 'quagga'; // ES6
 
+console.log('ProcessVideo.js script being read');
+alert('Hello World!');
+
 var resultCollector = Quagga.ResultCollector.create({
     capture: true,
     capacity: 20,
