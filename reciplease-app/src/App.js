@@ -2,6 +2,8 @@ import Ingredients from './components/Ingredients';
 import ScanBarcode from './components/ScanBarcode';
 import ScanFood from './components/ScanFood';
 import UploadBarcode from './components/UploadBarcode';
+import LiveCamera from './components/LiveCamera';
+import ImageSubmit from './components/ImageSubmit';
 import './App.css';
 import logo from './assets/reciplease-logo.png';
 
@@ -16,6 +18,8 @@ function App() {
         <h1>Welcome to Reciplease!</h1>
       </div>
 
+      <ImageSubmit/>
+      <LiveCamera/>
       <UploadBarcode></UploadBarcode>
       </div>
       
@@ -29,7 +33,5 @@ function App() {
     </div>
   );
 }
-
-
 
 export default App;
