@@ -31,7 +31,8 @@ def find_recipes():
     payload = {
         "ingredients": request.args.get("ingredients"),
         "number": 10,
-        "apiKey": os.environ.get("SPOONACULAR_API_KEY")
+        "apiKey": IEspoonacular, #os.environ.get("SPOONACULAR_API_KEY"),
+        "ignorePantry": "true"
     }
 
     r = requests.get("https://api.spoonacular.com/recipes/findByIngredients", params=payload)
@@ -74,8 +75,10 @@ def get_recipe(r_id):
         return 'No link'
 
 if __name__ == "__main__":
-    """ingredients = detect_ingredients('Goldfish Baked Crackers')
-    print(ingredients)"""
     # for testing purposes
+    """ingredients = detect_ingredients('Goldfish Baked Crackers')
+    print(ingredients)
     info = get_recipe(1)
     print(info)
+    recipes = find_recipes("granny smith apple")
+    print(recipes)"""
