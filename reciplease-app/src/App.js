@@ -1,7 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-import Quagga from 'quagga'; // ES6
-const Quagga = require('quagga').default; // Common JS (important: default)
 
 function App() {
   return (
