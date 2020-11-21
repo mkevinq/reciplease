@@ -5,7 +5,6 @@ import UploadBarcode from './components/UploadBarcode';
 import LiveCamera from './components/LiveCamera';
 import ImageSubmit from './components/ImageSubmit';
 import './App.css';
-import Quagga from 'quagga';
 
 function App() {
   return (
