@@ -2,14 +2,25 @@ import base64
 import json
 import requests
 import os
+import urllib.parse
 from flask import Flask, request, jsonify
+from getKey import rapidAPI, IEspoonacular
 
 app = Flask(__name__)
 
-@app.route("/api/barcodeLookup", methods=["GET"])
-def barcode_lookup():
-    barcode = request.args.get("barcode")
-    return bull
+@app.route("/api/barcodeLookup/<barcode>", methods=["GET"])
+def barcode_lookup(barcode):
+    url = "https://barcode-monster.p.rapidapi.com/" + barcode
+    headers = {
+        'x-rapidapi-key': rapidAPI,
+        'x-rapidapi-host': "barcode-monster.p.rapidapi.com"
+    }
+    response = requests.request("GET", url, headers=headers)
+    if response.status_code == 200:
+        productInfo = response.json()
+        return productInfo["description"]
+    else:
+        return "Not found"
 
 @app.route("/api/findRecipes", methods=["GET"])
 def find_recipes():
@@ -22,6 +33,28 @@ def find_recipes():
     r = requests.get("https://api.spoonacular.com/recipes/findByIngredients", params=payload)
     return r.json()
 
-@app.route("/api/detectIngredients", methods=["POST"])
-def detect_ingredients():
-    return bull
+@app.route("/api/detectIngredients/<productName>", methods=["GET"])
+def detect_ingredients(productName):
+    url = "https://api.spoonacular.com/food/detect"
+    headers = {
+        'content-type': 'application/x-www-form-urlencoded'
+    }
+    payload = "text=" + urllib.parse.quote(productName.lower()) + "&apiKey=" + IEspoonacular
+    response = requests.request('POST', url, headers=headers, params=payload)
+
+    if response.status_code == 200:
+        responseJSON = response.json()
+        annotations = responseJSON['annotations']
+        ingredients = []
+        for a in annotations:
+            if a['tag'] == 'ingredient':
+                ingredients.append(a['annotation'])
+        return ingredients
+    else:
+        print(response.status_code)
+        return 'Unable to detect ingredient type'
+
+if __name__ == "__main__":
+    """ingredients = detect_ingredients('Goldfish Baked Crackers')
+    print(ingredients)"""
+    # for testing purposes
