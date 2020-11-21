@@ -11,7 +11,6 @@ class LiveCamera extends Component {
     }
     
     componentDidMount() {
-        console.log('Starting camera.');
         Quagga.init({
             numOfWorkers: 4,
             locate: true,
@@ -30,7 +29,6 @@ class LiveCamera extends Component {
                 console.log(err);
                 return
             }
-            console.log("Initialization finished. Ready to start");
             
             //Use torch and zoom if necessary
             // var track = Quagga.CameraAccess.getActiveTrack();
@@ -45,7 +43,6 @@ class LiveCamera extends Component {
             // console.log('Capabilities complete.');
             
             Quagga.start();
-            console.log("Started.");
         });
         
         Quagga.onProcessed((data) => {

@@ -24,13 +24,10 @@ function ImageSubmit() {
     function convertTo64(event) {
       const file = document.getElementById('file').files[0];
       var filename;
-      console.log('Test: ' + file);
       if (FileReader && file) {
         var fr = new FileReader();
-        console.log('Before onload');
         fr.onloadend = function () {
             filename = fr.result;
-            console.log('Test sequel: ' + filename);
             processImage(filename);
         }
         fr.readAsDataURL(file);
