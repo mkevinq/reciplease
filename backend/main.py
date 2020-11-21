@@ -54,7 +54,21 @@ def detect_ingredients(productName):
         print(response.status_code)
         return 'Unable to detect ingredient type'
 
+@app.route("/api/getRecipeLink/<id>", methods=["GET"])
+def get_recipe_link(r_id):
+    url = 'https://api.spoonacular.com/recipes/' + str(r_id) + '/information/?includeNutrition=false&apiKey=' + IEspoonacular
+    print(url)
+    response = requests.request("GET", url)
+    if response.status_code == 200:
+        recipeInfo = response.json()
+        link = recipeInfo['sourceUrl']
+        return link
+    else:
+        return 'No link'
+
 if __name__ == "__main__":
     """ingredients = detect_ingredients('Goldfish Baked Crackers')
     print(ingredients)"""
     # for testing purposes
+    """link = get_recipe_link(716429)
+    print(link)"""
