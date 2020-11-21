@@ -3,7 +3,10 @@ import './Ingredients.css';
 
 function Ingredients(props) {
     return (
-        <div></div>
+        <div>
+            <h3>Your ingredients</h3>
+            <textarea disabled>{props.ingredients}</textarea>
+        </div>
     )
 }
 
