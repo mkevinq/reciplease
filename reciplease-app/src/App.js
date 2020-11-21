@@ -17,9 +17,22 @@ function App() {
         >
           REACT PAGE
         </a>
+        <ImageSubmit/>
       </header>
     </div>
   );
+}
+
+//Submission form for images (returns the code)
+function ImageSubmit() {
+  <form>
+    <div class="input-field">
+        <label for="isbn_input">EAN:</label>
+        <input id="isbn_input" class="isbn" type="text" />
+        <button type="button" class="icon-barcode button scan">&nbsp;</button>
+        <input type="file" id="file" capture/>
+    </div>
+</form>
 }
 
 export default App;
