@@ -5,6 +5,7 @@ import './App.css';
 import logo from './assets/reciplease-logo.png';
 import reciplease from "./recipleaseBackend.js";
 import Quagga from 'quagga';
+import isIngredient from './IngredientChecker.js';
 
 
 // need to create a display recipes function to make a <Recipe> card for each recipe
@@ -57,7 +58,7 @@ function App() {
         setIngredients((prevIngredients) => {
           console.log(response.data.predictions[0][0][2]);
           console.log(prevIngredients)
-          if (response.data.predictions[0][0][2] > 0.99 && !prevIngredients.includes(response.data.predictions[0][0][1])) {
+          if (response.data.predictions[0][0][2] > 0.99 && !prevIngredients.includes(response.data.predictions[0][0][1]) && isIngredient(response.data.predictions[0][0][1])) {
             return [...prevIngredients, response.data.predictions[0][0][1]]
           } else {
             return [...prevIngredients]

@@ -1,5 +1,5 @@
+import { ingredients } from "./assets/top-1k-ingredients.json";
 
-
-function isIngredient(ingredient) {
-    return false;
+export default function isIngredient(ingredient) {
+    return ingredients.includes(ingredient);
 }
