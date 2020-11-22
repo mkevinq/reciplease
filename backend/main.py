@@ -69,7 +69,7 @@ def detect_ingredients(productName):
         annotations = responseJSON['annotations']
         ingredients = []
         for a in annotations:
-            if a['tag'] == 'ingredient':
+            if (a['tag'] == 'ingredient' or a['tag'] == 'dish'):
                 ingredients.append(a['annotation'])
         return ingredients
     else:
