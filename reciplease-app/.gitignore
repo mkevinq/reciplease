@@ -25,3 +25,5 @@ yarn-error.log*
 src/getKey.json
 
 debug.log
+
+../model-training/data
