@@ -15,7 +15,6 @@ function App() {
   const [recipes, setRecipes] = useState([]);
 
   const lastBarcode = useRef("");
-  const lastItem = useRef("");
   const ingredients_text = useRef(null);
 
   useEffect(() => {
@@ -55,11 +54,15 @@ function App() {
     setProcessing(true);
     reciplease.getIngredientsInImg(b64)
       .then((response) => {
-        console.log(response.data.predictions[0][0][2]);
-        if (response.data.predictions[0][0][2] > 0.99 && response.data.predictions[0][0][1] !== lastItem.current) {
-          lastItem.current = response.data.predictions[0][0][1];
-          setIngredients((prevIngredients) => [...prevIngredients, response.data.predictions[0][0][1]]);
-        }
+        setIngredients((prevIngredients) => {
+          console.log(response.data.predictions[0][0][2]);
+          console.log(prevIngredients)
+          if (response.data.predictions[0][0][2] > 0.99 && !prevIngredients.includes(response.data.predictions[0][0][1])) {
+            return [...prevIngredients, response.data.predictions[0][0][1]]
+          } else {
+            return [...prevIngredients]
+          }
+        });
         setProcessing(false);
       })
       .catch((error) => {
