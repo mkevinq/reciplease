@@ -24,17 +24,16 @@ input[type="file"] {
 }
 
 .button {
-    margin-top: 2em;
     background-color: white;
     border: 0.2em solid green;
     color: green;
     padding: 1em 2.6em;
     border-radius: 1em;
+    margin: 0.2em;
 } 
 
 .button:hover {
     background-color: green;
     color: white;
-    padding: 1em 2.6em;
     border-radius: 1em;
 } 
