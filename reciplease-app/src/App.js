@@ -15,6 +15,7 @@ function App() {
   const [recipes, setRecipes] = useState([]);
 
   const lastBarcode = useRef("");
+  const lastItem = useRef("");
   const ingredients_text = useRef(null);
 
   useEffect(() => {
@@ -51,9 +52,14 @@ function App() {
   }
 
   function getIngredientsInImg(b64) {
+    setProcessing(true);
     reciplease.getIngredientsInImg(b64)
       .then((response) => {
-        setIngredients([...ingredients, response.data.predictions[0][0][1]]);
+        console.log(response.data.predictions[0][0][2]);
+        if (response.data.predictions[0][0][2] > 0.99 && response.data.predictions[0][0][1] !== lastItem.current) {
+          lastItem.current = response.data.predictions[0][0][1];
+          setIngredients((prevIngredients) => [...prevIngredients, response.data.predictions[0][0][1]]);
+        }
         setProcessing(false);
       })
       .catch((error) => {
@@ -117,7 +123,6 @@ function App() {
                 </div>
               </form>
               <textarea placeholder="Your ingredients will go here!" disabled name="ingredients" ref={ingredients_text}>
-                {ingredients.join()}
               </textarea>
               <button type="button" id="search" class="icon-barcode button scan" onClick={findRecipes}>&nbsp;Get recipes!</button>
           </div>
