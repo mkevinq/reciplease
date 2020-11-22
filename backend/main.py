@@ -42,7 +42,7 @@ def barcode_lookup():
 def find_recipes():
     payload = {
         "ingredients": request.args.get("ingredients"),
-        "number": 10,
+        "number": 9,
         "apiKey": os.environ.get("SPOONACULAR_API_KEY"),
         "ignorePantry": "true"
     }

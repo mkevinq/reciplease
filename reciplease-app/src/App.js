@@ -145,11 +145,9 @@ function App() {
 
         {/*Everything below the 'top collection'*/}
 
-        <div id="list">
+        <div className="recipes">
           { recipes.map((recipe) => (
-            <div className="recipes">
-              <Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} ingredients={recipe.extendedIngredients.map((ingredient) => ingredient.originalName).join(", ")} />
-            </div>
+            <Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} ingredients={recipe.extendedIngredients.map((ingredient) => ingredient.originalName).join(", ")} />
           ))}
         </div>
 
