@@ -12,7 +12,7 @@ class LiveCamera extends Component {
     }
     
     componentDidMount() {
-        makeQuagga();
+        makeQuagga(this.props.onBarcodeDetection);
     }
 }
 

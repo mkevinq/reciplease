@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ScanBarcode from './components/ScanBarcode';
 import ScanFood from './components/ScanFood';
-import UploadBarcode from './components/UploadBarcode';
 import LiveCamera from './components/LiveCamera';
 import Recipe from './components/Recipe';
 import './App.css';
@@ -17,8 +16,8 @@ function App() {
   const [ingredients, setIngredients] = useState([]);
   const [processing, setProcessing] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [lastBarcode, setLastBarcode] = useState("");
 
+  const lastBarcode = useRef("");
   const ingredients_text = useRef(null);
 
   useEffect(() => {
@@ -39,9 +38,9 @@ function App() {
   }
 
   function barcodeLookup(code) {
-    if (code !== lastBarcode && code !== "") {
+    if (code !== lastBarcode.current && code !== "") {
       setProcessing(true);
-      setLastBarcode(code)
+      lastBarcode.current = code;
       reciplease.barcodeLookup(code)
       .then((response) => {
         setIngredients(ingredients.concat(response.data.ingredients))
@@ -79,11 +78,11 @@ function App() {
       if(result && result.codeResult) { //The first result is always NULL (not sure why though)
         console.log("result", result.codeResult.code);
         barcodeLookup(result.codeResult.code);
-        makeQuagga();
+        makeQuagga(barcodeLookup);
       } else {
         console.log("not detected");
         getIngredientsInImg(base64Img.split(",")[1]);
-        makeQuagga();
+        makeQuagga(barcodeLookup);
       }
     });
   }
@@ -132,7 +131,7 @@ function App() {
         {/*Everything below the 'top collection'*/}
 
         <div className="recipes">
-          {recipes.map((recipe) => (<Recipe image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
+          {recipes.map((recipe) => (<Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
         </div>
       </div>
       <div className="banner">

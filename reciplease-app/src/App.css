@@ -68,7 +68,7 @@
   margin: 0.2em;
 }
 
-button {
+.button {
   background-color: white;
   border: 0.2em solid #FF6B6B;
   color: #FF6B6B;
@@ -77,9 +77,34 @@ button {
   margin: 0.2em;
 }
 
-button:hover {
+.button:hover {
   background-color: #FF6B6B;
   color: white;
+  border-radius: 1em;
+}
+
+.input-field {
+  display: block;
+  width: 2em;
+  padding: 10px; 
+}  
+
+input[type="file"] {
+  display: none;
+}
+
+.file-upload {
+  background-color: white;
+  border: 0.2em solid #FF6B6B;
+  color: #FF6B6B;
+  padding: 0.8em 2em;
+  border-radius: 1em;
+}
+
+.file-upload:hover {
+  background-color: #FF6B6B;
+  color: white;
+  padding: 0.8em 2em;
   border-radius: 1em;
 }
 
