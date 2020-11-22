@@ -16,7 +16,23 @@ function App() {
         <div className="description">
           <h1>Welcome to Reciplease!</h1>
         </div>
-        <TopCollection/>
+        
+        {/*The top collection of items (video and everything to the left of it)*/}
+        <div class="topCollection">
+            <div class="leftCollection">
+                <p>Welcome to <i>reciplease</i>. Start finding aweseome recipes today!</p>
+                <div class="buttonCollection">
+                    <button>Number 1</button>
+                    <button>Number 2</button>
+                    <button>Number 3</button>
+                </div>
+                <textarea>
+                </textarea>
+            </div>
+            <LiveCamera/>
+        </div>
+
+        {/*Everything below the 'top collection'*/}
         <UploadBarcode/>
       </div>
       
