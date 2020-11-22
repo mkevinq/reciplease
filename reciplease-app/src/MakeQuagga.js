@@ -1,6 +1,10 @@
 import Quagga from 'quagga';
 
 export default function makeQuagga() {
+    if (Quagga.initialized != undefined) {
+        Quagga.stop();
+    }
+
     Quagga.init({
         numOfWorkers: 4,
         locate: true,
