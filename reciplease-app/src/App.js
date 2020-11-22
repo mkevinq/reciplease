@@ -6,7 +6,7 @@ import UploadBarcode from './components/UploadBarcode';
 import LiveCamera from './components/LiveCamera';
 import './App.css';
 import logo from './assets/reciplease-logo.png';
-import reciplease from "recipleaseBackend.js";
+import reciplease from "./recipleaseBackend.js";
 
 // need to create a display recipes function to make a <Recipe> card for each recipe
 
