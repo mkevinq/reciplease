@@ -55,3 +55,25 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.button {
+  margin-top: 2em;
+  background-color: white;
+  border: 0.2em solid green;
+  color: green;
+  padding: 1em 2.6em;
+  border-radius: 1em;
+} 
+
+.button:hover {
+  background-color: green;
+  color: white;
+  padding: 1em 2.6em;
+  border-radius: 1em;
+} 
+
+.divider{
+  width:25px;
+  height:auto;
+  display:inline-block;
+}

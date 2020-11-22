@@ -41,9 +41,6 @@ function UploadBarcode(props) {
   
     return (
       <form>
-        <div class="title">
-            <h1>Upload Barcode</h1>
-        </div>
         <div class="input-field">
             <label for="file" class="file-upload">
                 Upload

@@ -21,18 +21,19 @@ function App() {
             <div class="leftCollection">
                 <p>Welcome to <i>reciplease</i>. Start finding aweseome recipes today!</p>
                 <div class="buttonCollection">
-                    <button>Number 1</button>
+                    <UploadBarcode/>
+                    <div class='divider'/>
                     <button>Number 2</button>
+                    <div class='divider'/>
                     <button>Number 3</button>
                 </div>
-                <textarea>
+                <textarea id='ingredients'>
                 </textarea>
             </div>
             <LiveCamera/>
         </div>
 
         {/*Everything below the 'top collection'*/}
-        <UploadBarcode/>
       </div>
 
       <div className="banner">
