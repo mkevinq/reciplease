@@ -87,14 +87,14 @@ function App() {
     });
   }
 
-  //Coverts the selected file to base-64
-  function convertTo64(event) {
-    const file = document.getElementById('file').files[0];
+  //Coverts the given file to base-64
+  function convertTo64(event, file) {
     var filename;
     if (FileReader && file) {
       var fr = new FileReader();
       fr.onloadend = function () {
           filename = fr.result;
+          //console.log(filename);
           processImage(filename);
       }
       fr.readAsDataURL(file);
@@ -117,7 +117,9 @@ function App() {
                     <label for="file" class="file-upload">
                         Upload
                     </label>
-                    <input type="file" id="file" onChange={convertTo64}/>
+                    <input type="file" id="file" onChange={(event) => {
+                      convertTo64(event, document.getElementById('file').files[0]);
+                    }}/>
                 </div>
               </form>
               <textarea name="ingredients" ref={ingredients_text}>
