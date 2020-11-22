@@ -11,11 +11,11 @@ function postRequest(path, body) {
 }
 
 exports.getIngredientsInImg = function(imgb64) {
-    var body = {
-        imgb64: imgb64
-    }
+    var body = new FormData();
+    
+    body.append("imgb64", imgb64);
 
-    return postRequest("/api/getIngredientsInImage", body)
+    return postRequest("/api/detectIngredientsInImage", body)
 }
 
 exports.barcodeLookup = function(barcode) {
