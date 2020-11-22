@@ -76,8 +76,7 @@ function App() {
         <div class="topCollection">
           <div class="leftCollection">
             <p>Welcome to <i>reciplease</i>. Start finding awesome recipes today!</p>
-            <div class="buttonCollection">
-              <form>
+            <form>
                 <div class="input-field">
                     <label for="file" class="file-upload">
                         Upload
@@ -85,9 +84,8 @@ function App() {
                     <input type="file" id="file" onChange={convertTo64}/>
                 </div>
               </form>
-              <div class='divider'/>
+            <div class="buttonCollection">
               <button>Number 2</button>
-              <div class='divider'/>
               <button>Number 3</button>
             </div>
             <form method="get" action="/api/findRecipes">
