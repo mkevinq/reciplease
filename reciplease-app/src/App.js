@@ -97,7 +97,7 @@ function App() {
 
   //Submission form for images (returns the code)
   var hidden = 'hidden';
-  function processImage(base64Img) {
+  function processImage(base64Img, barcode) {
     Quagga.decodeSingle({
       decoder: {
         readers: ["ean_reader"] // List of active readers
@@ -105,7 +105,7 @@ function App() {
       locate: true, // try to locate the barcode in the image
       src: base64Img // or 'data:image/jpg;base64,' + data (the base64 image)
     }, function (result) {
-      if (result && result.codeResult) { //The first result is always NULL (not sure why though)
+      if (result && result.codeResult && barcode) { //The first result is always NULL (not sure why though)
         console.log("result", result.codeResult.code);
         barcodeLookup(result.codeResult.code);
         makeQuagga(barcodeLookup);
@@ -117,15 +117,14 @@ function App() {
     });
   }
 
-  //Coverts the selected file to base-64
-  function convertTo64(event) {
-    const file = document.getElementById('file').files[0];
+  //Coverts the given file to base-64
+  function convertTo64(file, barcode) {
     var filename;
     if (FileReader && file) {
       var fr = new FileReader();
       fr.onloadend = function () {
         filename = fr.result;
-        processImage(filename);
+        processImage(filename, barcode);
       }
       fr.readAsDataURL(file);
     }
@@ -147,15 +146,17 @@ function App() {
                 <label for="file" class="file-upload">
                   Upload
                     </label>
-                <input type="file" id="file" onChange={convertTo64} />
-              </div>
-            </form>
-            <textarea name="ingredients" ref={ingredients_text}>
-              {ingredients.join()}
-            </textarea>
-            <button type="button" id="search" class="icon-barcode button scan" onClick={findRecipes}>&nbsp;Get recipes!</button>
+                    <input type="file" id="file" onChange={(event) => {
+                      convertTo64(document.getElementById('file').files[0], true);
+                    }}/>
+                </div>
+              </form>
+              <textarea name="ingredients" ref={ingredients_text}>
+                {ingredients.join()}
+              </textarea>
+              <button type="button" id="search" class="icon-barcode button scan" onClick={findRecipes}>&nbsp;Get recipes!</button>
           </div>
-          <LiveCamera onBarcodeDetection={barcodeLookup} />
+          <LiveCamera onBarcodeDetection={barcodeLookup} base64Converter={convertTo64}/>
         </div>
 
         {/*Everything below the 'top collection'*/}

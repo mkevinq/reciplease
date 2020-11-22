@@ -17,6 +17,7 @@ function LiveCamera(props) {
                 image_capture.takePhoto()
                 .then((response) => {
                     console.log(response);
+                    props.base64Converter(response, false);
                 })
                 .catch((error) => {
                     console.log("could not take picture");
