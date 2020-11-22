@@ -54,7 +54,7 @@
 
 .leftCollection {
   text-align: left;
-  padding-right: 2.5vw;
+  margin-right: 5em;
 }
 
 .button, .file-upload {
@@ -92,12 +92,6 @@ input[type="file"] {
   display: none;
 }
 
-.divider{
-  width:25px;
-  height:auto;
-  display:inline-block;
-}
-
 textarea {
   width: 100%;
   height: 40vh;
@@ -106,6 +100,7 @@ textarea {
   border-radius: 1em;
   border: solid black;
   background-color: #fbf8c8;
+  padding: 1em;
 }
 
 /* width */
@@ -128,4 +123,9 @@ textarea {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
+}
+
+.recipes{
+  display: grid;
+  grid-template-columns: auto auto auto;
 }

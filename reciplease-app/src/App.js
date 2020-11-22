@@ -4,7 +4,6 @@ import Recipe from './components/Recipe';
 import './App.css';
 import logo from './assets/reciplease-logo.png';
 import reciplease from "./recipleaseBackend.js";
-import makeQuagga from './MakeQuagga.js';
 import Quagga from 'quagga';
 
 
@@ -16,39 +15,8 @@ function App() {
   const [recipes, setRecipes] = useState([]);
 
   const lastBarcode = useRef("");
+  const lastItem = useRef("");
   const ingredients_text = useRef(null);
-
-  const mockRecipes = {
-    key: "testing", 
-    image: logo,
-    title: "mac n cheese",
-    ingredients: "cheese", 
-    link: "www.youtube.com",
-  }
-
-  const mockRecipes2 = {
-    key: "testing2", 
-    image: logo,
-    title: "beans n cheese",
-    ingredients: "beans", 
-    link: "www.youtube.com",
-  }
-
-  const mockRecipes3 = {
-    key: "testing3", 
-    image: logo,
-    title: "CHEESE",
-    ingredients: "cheese", 
-    link: "www.youtube.com",
-  }
-
-  const mockRecipes4 = {
-    key: "testing4", 
-    image: logo,
-    title: "ch",
-    ingredients: "ee", 
-    link: "www.youtube.com",
-  }
 
   useEffect(() => {
     ingredients_text.current.value = ingredients.join();
@@ -84,9 +52,14 @@ function App() {
   }
 
   function getIngredientsInImg(b64) {
+    setProcessing(true);
     reciplease.getIngredientsInImg(b64)
       .then((response) => {
-        setIngredients([...ingredients, response.data.predictions[0][0][1]]);
+        console.log(response.data.predictions[0][0][2]);
+        if (response.data.predictions[0][0][2] > 0.99 && response.data.predictions[0][0][1] !== lastItem.current) {
+          lastItem.current = response.data.predictions[0][0][1];
+          setIngredients((prevIngredients) => [...prevIngredients, response.data.predictions[0][0][1]]);
+        }
         setProcessing(false);
       })
       .catch((error) => {
@@ -108,11 +81,9 @@ function App() {
       if (result && result.codeResult && barcode) { //The first result is always NULL (not sure why though)
         console.log("result", result.codeResult.code);
         barcodeLookup(result.codeResult.code);
-        makeQuagga(barcodeLookup);
       } else {
         console.log("not detected");
         getIngredientsInImg(base64Img.split(",")[1]);
-        makeQuagga(barcodeLookup);
       }
     });
   }
@@ -151,31 +122,20 @@ function App() {
                     }}/>
                 </div>
               </form>
-              <textarea name="ingredients" ref={ingredients_text}>
-                {ingredients.join()}
+              <textarea placeholder="Your ingredients will go here!" disabled name="ingredients" ref={ingredients_text}>
               </textarea>
               <button type="button" id="search" class="icon-barcode button scan" onClick={findRecipes}>&nbsp;Get recipes!</button>
           </div>
-          <LiveCamera onBarcodeDetection={barcodeLookup} base64Converter={convertTo64}/>
+          <LiveCamera onScreenshot={processImage}/>
         </div>
 
         {/*Everything below the 'top collection'*/}
 
-        {/* <div className="recipes">
-          {recipes.map((recipe) => (<Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
-        </div> */}
-        <div className="recipes">
-          <Recipe {...mockRecipes}/>
-        </div>
-        <div className="recipes">
-          <Recipe {...mockRecipes2}/>
-        </div>
-        <div className="recipes">
-          <Recipe {...mockRecipes3}/>
-        </div>
-        <div className="recipes">
-          <Recipe {...mockRecipes4}/>
-        </div>
+        { recipes.map((recipe) => (
+          <div className="recipes">
+            <Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} ingredients={recipe.extendedIngredients.map((ingredient) => ingredient.originalName).join(", ")} />
+          </div>
+        ))}
 
       </div>
       <div className="banner">
