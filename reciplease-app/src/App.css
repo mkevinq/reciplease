@@ -38,3 +38,20 @@
   margin-top: 10vh;
   padding: 3rem;
 }
+
+.topCollection {
+  min-height: 430px; /*Height of the image*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.leftCollection {
+  text-align: left;
+}
+
+.buttonCollection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

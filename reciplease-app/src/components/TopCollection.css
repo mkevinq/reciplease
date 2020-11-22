@@ -1,6 +1,0 @@
-.topCollection {
-    min-height: 430px; /*Height of the image*/
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
