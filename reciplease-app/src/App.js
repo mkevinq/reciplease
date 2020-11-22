@@ -81,7 +81,7 @@ function App() {
                     <label for="file" class="file-upload">
                         Upload
                     </label>
-                    <input type="file" id="file" onChange={search}/>
+                    <input type="file" id="file" onChange={convertTo64}/>
                 </div>
               </form>
               <div class='divider'/>
