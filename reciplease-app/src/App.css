@@ -7,6 +7,7 @@
   line-height: 10vh;
   position: fixed;
   top: 0;
+  left: 0;
   padding: 0.4em;
 }
 
@@ -40,9 +41,8 @@
 
 .topCollection {
   min-height: 430px; /*Height of the image*/
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: auto auto;
 }
 
 .leftCollection {
@@ -50,23 +50,22 @@
 }
 
 .buttonCollection {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
 }
 
 button {
   background-color: white;
   border: 0.2em solid green;
   color: green;
-  padding: 0.8em 2em;
+  padding: 1em 2.6em;
   border-radius: 1em;
+  margin: 0.2em;
 }
 
 button:hover {
   background-color: green;
   color: white;
-  padding: 0.8em 2em;
   border-radius: 1em;
 }
 
