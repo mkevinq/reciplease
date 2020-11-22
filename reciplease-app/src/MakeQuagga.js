@@ -1,7 +1,7 @@
 import Quagga from 'quagga';
 
-export default function makeQuagga() {
-    if (Quagga.initialized != undefined) {
+export default function makeQuagga(detectionCallback) {
+    if (Quagga.initialized !== undefined) {
         Quagga.stop();
     }
 
@@ -45,6 +45,6 @@ export default function makeQuagga() {
 
     Quagga.onDetected((data) => {
         console.log('Code: ' + data.codeResult.code);
-        this.props.onBarcodeDetection(data.codeResult.code);
+        detectionCallback(data.codeResult.code);
     });
 }
