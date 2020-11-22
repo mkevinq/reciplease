@@ -24,9 +24,9 @@ app = Flask(__name__)
 process: user uploads pic or barcode --> those are scanned and the proper food is returned --> we detect ingredients --> based on those, find recipes --> get link and all ingredients
 """
 
-@app.route("/api/barcodeLookup/<barcode>", methods=["GET"])
-def barcode_lookup(barcode):
-    url = "https://barcode-monster.p.rapidapi.com/" + barcode
+@app.route("/api/barcodeLookup", methods=["GET"])
+def barcode_lookup():
+    url = "https://barcode-monster.p.rapidapi.com/" + request.args.get("barcode")
     headers = {
         'x-rapidapi-key': os.environ.get("RAPIDAPI_KEY"),
         'x-rapidapi-host': "barcode-monster.p.rapidapi.com"
@@ -42,7 +42,7 @@ def barcode_lookup(barcode):
 def find_recipes():
     payload = {
         "ingredients": request.args.get("ingredients"),
-        "number": 3,
+        "number": 10,
         "apiKey": os.environ.get("SPOONACULAR_API_KEY"),
         "ignorePantry": "true"
     }

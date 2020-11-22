@@ -40,17 +40,17 @@ function App() {
       setProcessing(true);
       lastBarcode.current = code;
       reciplease.barcodeLookup(code)
-        .then((response) => {
-          setIngredients((prevIngredients) => {
-            console.log(prevIngredients)
-            return [...prevIngredients, ...response.data.ingredients.filter((i) => !prevIngredients.includes(i) && isIngredient(i))]
-          });
-          setProcessing(false);
-        })
-        .catch((error) => {
-          console.log("lmao1");
-          setProcessing(false);
-        })
+      .then((response) => {
+        setIngredients((prevIngredients) => {
+          console.log(prevIngredients)
+          return [...prevIngredients, ...response.data.ingredients.filter((i) => !prevIngredients.includes(i) && isIngredient(i))]
+        });
+        setProcessing(false);
+      })
+      .catch((error) => {
+        console.log("lmao1");
+        setProcessing(false);
+      })
     }
   }
 
