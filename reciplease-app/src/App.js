@@ -31,7 +31,7 @@ function App() {
       .then((response) => {
         setRecipes(response.data.recipes);
         setProcessing(false);
-        document.getElementById("list").scrollIntoView({behavior: "smooth"});
+        document.getElementById("recipes").scrollIntoView({behavior: "smooth"});
       })
       .catch((error) => {
         console.log("lmao3");
@@ -65,7 +65,7 @@ function App() {
         setIngredients((prevIngredients) => {
           console.log(response.data.predictions[0][0][2]);
           console.log(prevIngredients)
-          if (response.data.predictions[0][0][2] > 0.99 && !prevIngredients.includes(response.data.predictions[0][0][1]) && isIngredient(response.data.predictions[0][0][1])) {
+          if (response.data.predictions[0][0][2] > 0.90 && !prevIngredients.includes(response.data.predictions[0][0][1]) && isIngredient(response.data.predictions[0][0][1])) {
             return [...prevIngredients, response.data.predictions[0][0][1]]
           } else {
             return [...prevIngredients]
@@ -145,7 +145,7 @@ function App() {
 
         {/*Everything below the 'top collection'*/}
 
-        <div className="recipes">
+        <div className="recipes" id="recipes">
           { recipes.map((recipe) => (
             <Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} ingredients={recipe.extendedIngredients.map((ingredient) => ingredient.originalName).join(", ")} />
           ))}
