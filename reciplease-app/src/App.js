@@ -151,7 +151,7 @@ function App() {
                     }}/>
                 </div>
               </form>
-              <textarea name="ingredients" ref={ingredients_text}>
+              <textarea placeholder="Your ingredients will go here!" disabled name="ingredients" ref={ingredients_text}>
                 {ingredients.join()}
               </textarea>
               <button type="button" id="search" class="icon-barcode button scan" onClick={findRecipes}>&nbsp;Get recipes!</button>
