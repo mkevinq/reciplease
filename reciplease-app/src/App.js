@@ -88,7 +88,6 @@ function App() {
               <button>Number 2</button>
               <div class='divider'/>
               <button>Number 3</button>
-              
             </div>
             <form method="get" action="/api/findRecipes">
               <textarea name="ingredients">
