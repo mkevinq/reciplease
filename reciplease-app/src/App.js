@@ -6,6 +6,7 @@ import logo from './assets/reciplease-logo.png';
 import reciplease from "./recipleaseBackend.js";
 import Quagga from 'quagga';
 import isIngredient from './IngredientChecker.js';
+import Popup from 'reactjs-popup';
 
 
 // need to create a display recipes function to make a <Recipe> card for each recipe
@@ -14,6 +15,7 @@ function App() {
   const [ingredients, setIngredients] = useState([]);
   const [processing, setProcessing] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [processingMsg, setProcessingMsg] = useState("");
 
   const lastBarcode = useRef("");
   const ingredients_text = useRef(null);
@@ -24,10 +26,12 @@ function App() {
 
   function findRecipes(event) {
     setProcessing(true);
+    setProcessingMsg("Finding recipes...")
     reciplease.findRecipes(ingredients)
       .then((response) => {
         setRecipes(response.data.recipes);
         setProcessing(false);
+        document.getElementById("list").scrollIntoView({behavior: "smooth"});
       })
       .catch((error) => {
         console.log("lmao3");
@@ -38,6 +42,7 @@ function App() {
   function barcodeLookup(code) {
     if (code !== lastBarcode.current && code !== "") {
       setProcessing(true);
+      setProcessingMsg("Looking up barcode...")
       lastBarcode.current = code;
       reciplease.barcodeLookup(code)
       .then((response) => {
@@ -55,7 +60,6 @@ function App() {
   }
 
   function getIngredientsInImg(b64) {
-    setProcessing(true);
     reciplease.getIngredientsInImg(b64)
       .then((response) => {
         setIngredients((prevIngredients) => {
@@ -67,16 +71,13 @@ function App() {
             return [...prevIngredients]
           }
         });
-        setProcessing(false);
       })
       .catch((error) => {
         console.log("lmao2");
-        setProcessing(false);
       })
   }
 
   //Submission form for images (returns the code)
-  var hidden = 'hidden';
   function processImage(base64Img, barcode) {
     Quagga.decodeSingle({
       decoder: {
@@ -111,6 +112,12 @@ function App() {
   return (
     <div className="App">
       <div className="content">
+        <Popup open={processing} closeOnDocumentClick={false} closeOnEscape={false} modal>
+          <div className="modal">
+            <div className="header">Processing...</div>
+            <h3 className="message">{processingMsg}</h3>
+          </div>
+        </Popup>
 
         {/*The top collection of items (video and everything to the left of it)*/}
         <div class="topCollection">
@@ -138,11 +145,13 @@ function App() {
 
         {/*Everything below the 'top collection'*/}
 
-        { recipes.map((recipe) => (
-          <div className="recipes">
-            <Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} ingredients={recipe.extendedIngredients.map((ingredient) => ingredient.originalName).join(", ")} />
-          </div>
-        ))}
+        <div id="list">
+          { recipes.map((recipe) => (
+            <div className="recipes">
+              <Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} ingredients={recipe.extendedIngredients.map((ingredient) => ingredient.originalName).join(", ")} />
+            </div>
+          ))}
+        </div>
 
       </div>
       <div className="banner">
