@@ -91,10 +91,10 @@ function App() {
               
             </div>
             <form method="get" action="/api/findRecipes">
-            <textarea name="ingredients">
-            </textarea>
-            <button type="button" id="search" style={{visibility: "hidden"}}class="icon-barcode button scan" onClick={convertTo64}>&nbsp;Get recipes!</button>
-          </form>
+              <textarea name="ingredients">
+              </textarea>
+              <button type="button" id="search" style={{visibility: "hidden"}}class="icon-barcode button scan" onClick={convertTo64}>&nbsp;Get recipes!</button>
+            </form>
           </div>
           <LiveCamera onBarcodeDetection={barcodeLookup} />
         </div>
