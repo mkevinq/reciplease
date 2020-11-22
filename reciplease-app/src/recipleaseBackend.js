@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-var baseUrl = "http://localhost"
+var baseUrl = ""
 
 function getRequest(path, options) {
     return axios.get(baseUrl + path, { params: options })
