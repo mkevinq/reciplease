@@ -40,23 +40,21 @@ function App() {
                 <div class='divider'/>
                 <button>Number 3</button>
             </div>
-            <textarea id='ingredients'>
-            </textarea>
-          </div>
-          <form method="get" action="/api/findRecipes">
+            <form method="get" action="/api/findRecipes">
             <textarea name="ingredients">
             </textarea>
             <button type="submit">Get recipes!</button>
           </form>
+          </div>
+          <LiveCamera onBarcodeDetection={barcodeLookup} />
         </div>
-        <LiveCamera onBarcodeDetection={barcodeLookup} />
-      </div>
 
-      {/*Everything below the 'top collection'*/}
-      <div className="banner">
-        <div className="logo-div">
-          <img className="logo" src={logo} alt=""></img>
-          <h1>Reciplease</h1>
+        {/*Everything below the 'top collection'*/}
+        <div className="banner">
+          <div className="logo-div">
+            <img className="logo" src={logo} alt=""></img>
+            <h1>Reciplease</h1>
+          </div>
         </div>
       </div>
     </div>
