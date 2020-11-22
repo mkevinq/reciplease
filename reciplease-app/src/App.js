@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import ScanBarcode from './components/ScanBarcode';
-import ScanFood from './components/ScanFood';
 import LiveCamera from './components/LiveCamera';
 import Recipe from './components/Recipe';
 import './App.css';
