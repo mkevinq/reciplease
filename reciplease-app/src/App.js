@@ -137,7 +137,7 @@ function App() {
         </div>
 
         <div className="recipes">
-          {recipes.map((recipe) => (<Recipe image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
+          {recipes.map((recipe) => (<Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
         </div>
       </div>
     </div>
