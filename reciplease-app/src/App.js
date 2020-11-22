@@ -41,7 +41,10 @@ function App() {
       lastBarcode.current = code;
       reciplease.barcodeLookup(code)
         .then((response) => {
-          setIngredients(ingredients.concat(response.data.ingredients))
+          setIngredients((prevIngredients) => {
+            console.log(prevIngredients)
+            return [...prevIngredients, ...response.data.ingredients.filter((i) => !prevIngredients.includes(i) && isIngredient(i))]
+          });
           setProcessing(false);
         })
         .catch((error) => {
