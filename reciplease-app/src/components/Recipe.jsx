@@ -13,7 +13,7 @@ function Recipe(props) {
     }*/
 
     return (
-        <div>
+        <div className="recipe-card">
             <img src={props.image} alt="" class="food"></img>
             <h1>{props.title}</h1>
             <p>{props.ingredients}</p>

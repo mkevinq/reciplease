@@ -166,14 +166,8 @@ function App() {
         </div> */}
         <div className="recipes">
           <Recipe {...mockRecipes}/>
-        </div>
-        <div className="recipes">
           <Recipe {...mockRecipes2}/>
-        </div>
-        <div className="recipes">
           <Recipe {...mockRecipes3}/>
-        </div>
-        <div className="recipes">
           <Recipe {...mockRecipes4}/>
         </div>
 
