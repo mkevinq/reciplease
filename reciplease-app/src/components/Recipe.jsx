@@ -14,7 +14,7 @@ function Recipe(props) {
 
     return (
         <div>
-            <img src={props.image}></img>
+            <img src={props.image} alt=""></img>
             <h1>{props.title}</h1>
             <p>{props.ingredients}</p>
             <a href={props.link}>See the full recipe here!</a>

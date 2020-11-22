@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ScanBarcode from './components/ScanBarcode';
 import ScanFood from './components/ScanFood';
 import UploadBarcode from './components/UploadBarcode';
 import LiveCamera from './components/LiveCamera';
+import Recipe from './components/Recipe';
 import './App.css';
 import logo from './assets/reciplease-logo.png';
 import reciplease from "./recipleaseBackend.js";
@@ -12,20 +13,55 @@ import Quagga from 'quagga';
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
-  var lastBarcode = "";
-  var lastFile;
+  const [processing, setProcessing] = useState(false);
+  const [recipes, setRecipes] = useState([]);
+  const [lastBarcode, setLastBarcode] = useState("");
+
+  const ingredients_text = useRef(null);
+
+  useEffect(() => {
+    ingredients_text.current.value = ingredients.join();
+  }, [ingredients])
+
+  function findRecipes(event) {
+    setProcessing(true);
+    reciplease.findRecipes(ingredients)
+    .then((response) => {
+      setRecipes(response.data.recipes);
+      setProcessing(false);
+    })
+    .catch((error) => {
+      console.log("lmao3");
+      setProcessing(false);
+    })
+  }
 
   function barcodeLookup(code) {
-    if (code !== lastBarcode) {
-      lastBarcode = code;
+    if (code !== lastBarcode && code !== "") {
+      setProcessing(true);
+      setLastBarcode(code)
       reciplease.barcodeLookup(code)
       .then((response) => {
         setIngredients(ingredients.concat(response.data.ingredients))
+        setProcessing(false);
       })
       .catch((error) => {
         console.log("lmao1");
+        setProcessing(false);
       })
     }
+  }
+
+  function getIngredientsInImg(b64) {
+    reciplease.getIngredientsInImg(b64)
+    .then((response) => {
+      setIngredients([...ingredients, response.data.predictions[0][0][1]]);
+      setProcessing(false);
+    })
+    .catch((error) => {
+      console.log("lmao2");
+      setProcessing(false);
+    })
   }
 
   //Submission form for images (returns the code)
@@ -43,6 +79,7 @@ function App() {
         barcodeLookup(result.codeResult.code);
       } else {
         console.log("not detected");
+        getIngredientsInImg(base64Img.split(",")[1]);
       }
     });
   }
@@ -59,10 +96,6 @@ function App() {
       }
       fr.readAsDataURL(file);
     }
-  }
-
-  function search (){
-      document.getElementById("search").style.visibility = "visible";
   }
 
   return (
@@ -84,15 +117,10 @@ function App() {
                     <input type="file" id="file" onChange={convertTo64}/>
                 </div>
               </form>
-            <div class="buttonCollection">
-              <button>Number 2</button>
-              <button>Number 3</button>
-            </div>
-            <form method="get" action="/api/findRecipes">
-              <textarea name="ingredients">
+              <textarea name="ingredients" ref={ingredients_text}>
+                {ingredients.join()}
               </textarea>
-              <button type="button" id="search" class="icon-barcode button scan">&nbsp;Get recipes!</button>
-            </form>
+              <button type="button" id="search" class="icon-barcode button scan" onClick={findRecipes}>&nbsp;Get recipes!</button>
           </div>
           <LiveCamera onBarcodeDetection={barcodeLookup} />
         </div>
@@ -103,6 +131,10 @@ function App() {
             <img className="logo" src={logo} alt=""></img>
             <h1>Reciplease</h1>
           </div>
+        </div>
+
+        <div className="recipes">
+          {recipes.map((recipe) => (<Recipe image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
         </div>
       </div>
     </div>
