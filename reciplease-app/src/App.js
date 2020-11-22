@@ -19,12 +19,13 @@ function App() {
         <TopCollection/>
         <UploadBarcode/>
       </div>
-      
+
       <div className="banner">
         <div className="logo-div">
-        <img className="logo" src={logo}></img>
+          <img className="logo" src={logo}></img>
+          <h1>Reciplease</h1>
         </div>
-        Reciplease
+
       </div>
     </div>
   );
