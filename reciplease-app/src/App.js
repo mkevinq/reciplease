@@ -4,7 +4,6 @@ import Recipe from './components/Recipe';
 import './App.css';
 import logo from './assets/reciplease-logo.png';
 import reciplease from "./recipleaseBackend.js";
-import makeQuagga from './MakeQuagga.js';
 import Quagga from 'quagga';
 
 
@@ -76,11 +75,9 @@ function App() {
       if (result && result.codeResult && barcode) { //The first result is always NULL (not sure why though)
         console.log("result", result.codeResult.code);
         barcodeLookup(result.codeResult.code);
-        makeQuagga(barcodeLookup);
       } else {
         console.log("not detected");
         getIngredientsInImg(base64Img.split(",")[1]);
-        makeQuagga(barcodeLookup);
       }
     });
   }
@@ -124,15 +121,16 @@ function App() {
               </textarea>
               <button type="button" id="search" class="icon-barcode button scan" onClick={findRecipes}>&nbsp;Get recipes!</button>
           </div>
-          <LiveCamera onBarcodeDetection={barcodeLookup} base64Converter={convertTo64}/>
+          <LiveCamera onScreenshot={processImage}/>
         </div>
 
         {/*Everything below the 'top collection'*/}
 
-        <div className="recipes">
-          {recipes.map((recipe) => (<Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
-        </div>
-
+        { recipes.map((recipe) => (
+          <div className="recipes">
+            <Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} ingredients={recipe.extendedIngredients.map((ingredient) => ingredient.originalName).join(", ")} />
+          </div>
+        ))}
 
       </div>
       <div className="banner">
