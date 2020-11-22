@@ -1,0 +1,9 @@
+.leftCollection {
+    text-align: left;
+}
+
+.buttonCollection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
