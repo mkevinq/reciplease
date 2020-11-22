@@ -18,38 +18,6 @@ function App() {
   const lastBarcode = useRef("");
   const ingredients_text = useRef(null);
 
-  const mockRecipes = {
-    key: "testing", 
-    image: logo,
-    title: "mac n cheese",
-    ingredients: "cheese", 
-    link: "www.youtube.com",
-  }
-
-  const mockRecipes2 = {
-    key: "testing2", 
-    image: logo,
-    title: "beans n cheese",
-    ingredients: "beans", 
-    link: "www.youtube.com",
-  }
-
-  const mockRecipes3 = {
-    key: "testing3", 
-    image: logo,
-    title: "CHEESE",
-    ingredients: "cheese", 
-    link: "www.youtube.com",
-  }
-
-  const mockRecipes4 = {
-    key: "testing4", 
-    image: logo,
-    title: "ch",
-    ingredients: "ee", 
-    link: "www.youtube.com",
-  }
-
   useEffect(() => {
     ingredients_text.current.value = ingredients.join();
   }, [ingredients])
@@ -161,15 +129,10 @@ function App() {
 
         {/*Everything below the 'top collection'*/}
 
-        {/* <div className="recipes">
-          {recipes.map((recipe) => (<Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
-        </div> */}
         <div className="recipes">
-          <Recipe {...mockRecipes}/>
-          <Recipe {...mockRecipes2}/>
-          <Recipe {...mockRecipes3}/>
-          <Recipe {...mockRecipes4}/>
+          {recipes.map((recipe) => (<Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
         </div>
+
 
       </div>
       <div className="banner">
