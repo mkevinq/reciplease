@@ -75,3 +75,7 @@ button:hover {
   height:auto;
   display:inline-block;
 }
+
+textarea {
+  width: 100%;
+}
