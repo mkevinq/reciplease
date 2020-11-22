@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import ScanBarcode from './components/ScanBarcode';
-import ScanFood from './components/ScanFood';
 import LiveCamera from './components/LiveCamera';
 import Recipe from './components/Recipe';
 import './App.css';
@@ -27,14 +25,14 @@ function App() {
   function findRecipes(event) {
     setProcessing(true);
     reciplease.findRecipes(ingredients)
-    .then((response) => {
-      setRecipes(response.data.recipes);
-      setProcessing(false);
-    })
-    .catch((error) => {
-      console.log("lmao3");
-      setProcessing(false);
-    })
+      .then((response) => {
+        setRecipes(response.data.recipes);
+        setProcessing(false);
+      })
+      .catch((error) => {
+        console.log("lmao3");
+        setProcessing(false);
+      })
   }
 
   function barcodeLookup(code) {
@@ -42,27 +40,27 @@ function App() {
       setProcessing(true);
       lastBarcode.current = code;
       reciplease.barcodeLookup(code)
-      .then((response) => {
-        setIngredients(ingredients.concat(response.data.ingredients))
-        setProcessing(false);
-      })
-      .catch((error) => {
-        console.log("lmao1");
-        setProcessing(false);
-      })
+        .then((response) => {
+          setIngredients(ingredients.concat(response.data.ingredients))
+          setProcessing(false);
+        })
+        .catch((error) => {
+          console.log("lmao1");
+          setProcessing(false);
+        })
     }
   }
 
   function getIngredientsInImg(b64) {
     reciplease.getIngredientsInImg(b64)
-    .then((response) => {
-      setIngredients([...ingredients, response.data.predictions[0][0][1]]);
-      setProcessing(false);
-    })
-    .catch((error) => {
-      console.log("lmao2");
-      setProcessing(false);
-    })
+      .then((response) => {
+        setIngredients([...ingredients, response.data.predictions[0][0][1]]);
+        setProcessing(false);
+      })
+      .catch((error) => {
+        console.log("lmao2");
+        setProcessing(false);
+      })
   }
 
   //Submission form for images (returns the code)
@@ -74,8 +72,8 @@ function App() {
       },
       locate: true, // try to locate the barcode in the image
       src: base64Img // or 'data:image/jpg;base64,' + data (the base64 image)
-    }, function(result){
-      if(result && result.codeResult) { //The first result is always NULL (not sure why though)
+    }, function (result) {
+      if (result && result.codeResult) { //The first result is always NULL (not sure why though)
         console.log("result", result.codeResult.code);
         barcodeLookup(result.codeResult.code);
         makeQuagga(barcodeLookup);
@@ -93,9 +91,8 @@ function App() {
     if (FileReader && file) {
       var fr = new FileReader();
       fr.onloadend = function () {
-          filename = fr.result;
-          //console.log(filename);
-          processImage(filename);
+        filename = fr.result;
+        processImage(filename);
       }
       fr.readAsDataURL(file);
     }
@@ -104,18 +101,18 @@ function App() {
   return (
     <div className="App">
       <div className="content">
-        <div className="description">
-          <h1>Welcome to Reciplease!</h1>
-        </div>
 
         {/*The top collection of items (video and everything to the left of it)*/}
         <div class="topCollection">
           <div class="leftCollection">
-            <p>Welcome to <i>reciplease</i>. Start finding awesome recipes today!</p>
+            <div className="description">
+              <h1>Welcome to Reciplease!</h1>
+              <p>Start finding awesome recipes today!</p>
+            </div>
             <form>
-                <div class="input-field">
-                    <label for="file" class="file-upload">
-                        Upload
+              <div class="input-field">
+                <label for="file" class="file-upload">
+                  Upload
                     </label>
                     <input type="file" id="file" onChange={(event) => {
                       convertTo64(event, document.getElementById('file').files[0]);
@@ -131,15 +128,15 @@ function App() {
         </div>
 
         {/*Everything below the 'top collection'*/}
-        <div className="banner">
-          <div className="logo-div">
-            <img className="logo" src={logo} alt=""></img>
-            <h1>Reciplease</h1>
-          </div>
-        </div>
 
         <div className="recipes">
           {recipes.map((recipe) => (<Recipe key={recipe.title} image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
+        </div>
+      </div>
+      <div className="banner">
+        <div className="logo-div">
+          <img className="logo" src={logo} alt=""></img>
+          <h1>Reciplease</h1>
         </div>
       </div>
     </div>

@@ -1,14 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu');
+
+.App{
+  font-family: 'Ubuntu';
+}
+
 .banner {
-  background-position: 0%;
+  position: fixed;
   background-color: #FF6B6B;
   background-size: cover;
-  width: 100%;
   height: 10vh;
   line-height: 10vh;
-  position: fixed;
   top: 0;
-  left: 0;
   padding: 0.4em;
+  overflow: hidden;
+  width: 100%;
 }
 
 .logo{
@@ -35,64 +40,56 @@
 }
 
 .content{
+  max-height: 90vh;
   margin-top: 10vh;
-  padding: 3rem;
+  overflow-y: scroll;
 }
 
 .topCollection {
   min-height: 430px; /*Height of the image*/
   display: grid;
   grid-template-columns: auto auto;
+  padding: 5vw;
 }
 
 .leftCollection {
   text-align: left;
+  padding-right: 2.5vw;
 }
 
-.buttonCollection {
-  display: grid;
-  grid-template-columns: auto auto;
-  margin: 0.2em;
-}
-
-.button {
+.button, .file-upload {
   background-color: white;
   border: 0.2em solid #FF6B6B;
   color: #FF6B6B;
   padding: 1em 2.6em;
   border-radius: 1em;
-  margin: 0.2em;
+  transition: 0.5s;
+  font-size: small;
 }
 
-.button:hover {
+.button{
+  margin: 0.2em;
+  font-family: 'Ubuntu';
+}
+
+form{
+  margin-bottom: 1em;
+}
+
+.button:hover, .file-upload:hover {
   background-color: #FF6B6B;
   color: white;
   border-radius: 1em;
+  transition: 0.5s;
 }
 
 .input-field {
   display: block;
   width: 2em;
-  padding: 10px; 
 }  
 
 input[type="file"] {
   display: none;
-}
-
-.file-upload {
-  background-color: white;
-  border: 0.2em solid #FF6B6B;
-  color: #FF6B6B;
-  padding: 0.8em 2em;
-  border-radius: 1em;
-}
-
-.file-upload:hover {
-  background-color: #FF6B6B;
-  color: white;
-  padding: 0.8em 2em;
-  border-radius: 1em;
 }
 
 .divider{
@@ -102,7 +99,7 @@ input[type="file"] {
 }
 
 textarea {
-  width: 97.5%;
+  width: 100%;
   height: 40vh;
   overflow-y: scroll;
   resize: none;
