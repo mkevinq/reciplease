@@ -33,7 +33,6 @@
   line-height: 10vh;
 }
 
-
 .content{
   margin-top: 10vh;
   padding: 3rem;
@@ -56,21 +55,20 @@
   justify-content: space-evenly;
 }
 
-.button {
-  margin-top: 2em;
+button {
   background-color: white;
   border: 0.2em solid green;
   color: green;
-  padding: 1em 2.6em;
+  padding: 0.8em 2em;
   border-radius: 1em;
-} 
+}
 
-.button:hover {
+button:hover {
   background-color: green;
   color: white;
-  padding: 1em 2.6em;
+  padding: 0.8em 2em;
   border-radius: 1em;
-} 
+}
 
 .divider{
   width:25px;
