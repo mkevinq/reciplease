@@ -75,7 +75,6 @@ function App() {
         <div class="topCollection">
           <div class="leftCollection">
             <p>Welcome to <i>reciplease</i>. Start finding awesome recipes today!</p>
-<<<<<<< Updated upstream
             <div class="buttonCollection">
               <form>
                 <div class="input-field">
@@ -89,12 +88,6 @@ function App() {
               <button>Number 2</button>
               <div class='divider'/>
               <button>Number 3</button>
-=======
-              <UploadBarcode onButtonClick={barcodeLookup}/>
-            <div class="buttonCollection">
-                <button>Number 2</button>
-                <button>Number 3</button>
->>>>>>> Stashed changes
             </div>
             <form method="get" action="/api/findRecipes">
               <textarea name="ingredients">
