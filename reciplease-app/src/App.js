@@ -13,6 +13,7 @@ import Quagga from 'quagga';
 function App() {
   const [ingredients, setIngredients] = useState([]);
   var lastBarcode = "";
+  var lastFile;
 
   function barcodeLookup(code) {
     if (code !== lastBarcode) {
@@ -92,7 +93,7 @@ function App() {
             <form method="get" action="/api/findRecipes">
               <textarea name="ingredients">
               </textarea>
-              <button type="button" id="search" style={{visibility: "hidden"}}class="icon-barcode button scan" onClick={convertTo64}>&nbsp;Get recipes!</button>
+              <button type="button" id="search" class="icon-barcode button scan">&nbsp;Get recipes!</button>
             </form>
           </div>
           <LiveCamera onBarcodeDetection={barcodeLookup} />
