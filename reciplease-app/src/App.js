@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Ingredients from './components/Ingredients';
 import ScanBarcode from './components/ScanBarcode';
 import ScanFood from './components/ScanFood';
 import UploadBarcode from './components/UploadBarcode';
@@ -15,12 +14,12 @@ function App() {
 
   function barcodeLookup(code) {
     reciplease.barcodeLookup(code)
-    .then((response) => {
-      setIngredients(ingredients.concat(response.data.ingredients))
-    })
-    .catch((error) => {
-      console.log("lmao1");
-    })
+      .then((response) => {
+        setIngredients(ingredients.concat(response.data.ingredients))
+      })
+      .catch((error) => {
+        console.log("lmao1");
+      })
   }
 
   return (
@@ -29,24 +28,27 @@ function App() {
         <div className="description">
           <h1>Welcome to Reciplease!</h1>
         </div>
-        
+
         {/*The top collection of items (video and everything to the left of it)*/}
         <div class="topCollection">
-            <div class="leftCollection">
-                <p>Welcome to <i>reciplease</i>. Start finding aweseome recipes today!</p>
-                <div class="buttonCollection">
-                    <button>Number 1</button>
-                    <button>Number 2</button>
-                    <button>Number 3</button>
-                </div>
-                <textarea>
-                </textarea>
+          <div class="leftCollection">
+            <p>Welcome to <i>reciplease</i>. Start finding awesome recipes today!</p>
+            <div class="buttonCollection">
+              <button>Number 1</button>
+              <button>Number 2</button>
+              <button>Number 3</button>
             </div>
-            <LiveCamera onBarcodeDetection={barcodeLookup}/>
+            <form method="get" action="/api/findRecipes">
+              <textarea name="ingredients">
+              </textarea>
+              <button type="submit">Get recipes!</button>
+            </form>
+          </div>
+          <LiveCamera onBarcodeDetection={barcodeLookup} />
         </div>
 
         {/*Everything below the 'top collection'*/}
-        <UploadBarcode onButtonClick={barcodeLookup}/>
+        <UploadBarcode onButtonClick={barcodeLookup} />
       </div>
 
       <div className="banner">
