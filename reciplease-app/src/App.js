@@ -11,15 +11,19 @@ import reciplease from "./recipleaseBackend.js";
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
+  var lastBarcode = "";
 
   function barcodeLookup(code) {
-    reciplease.barcodeLookup(code)
+    if (code !== lastBarcode) {
+      lastBarcode = code;
+      reciplease.barcodeLookup(code)
       .then((response) => {
         setIngredients(ingredients.concat(response.data.ingredients))
       })
       .catch((error) => {
         console.log("lmao1");
       })
+    }
   }
 
   return (
