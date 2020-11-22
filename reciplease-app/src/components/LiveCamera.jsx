@@ -51,6 +51,7 @@ class LiveCamera extends Component {
 
         Quagga.onDetected((data) => {
             console.log('Code: ' + data.codeResult.code);
+            this.props.onBarcodeDetection(data.codeResult.code);
         });
     }
 }

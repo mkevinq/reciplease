@@ -15,6 +15,7 @@ function UploadBarcode(props) {
       }, function(result){
         if(result && result.codeResult) { //The first result is always NULL (not sure why though)
           console.log("result", result.codeResult.code);
+          props.onButtonClick(result.codeResult.code);
         } else {
           console.log("not detected");
         }

@@ -10,7 +10,7 @@ function postRequest(path, body) {
     return axios.post(baseUrl + path, body)
 }
 
-function getIngredientsInImg(imgb64) {
+exports.getIngredientsInImg = function(imgb64) {
     var body = {
         imgb64: imgb64
     }
@@ -18,7 +18,7 @@ function getIngredientsInImg(imgb64) {
     return postRequest("/api/getIngredientsInImage", body)
 }
 
-function barcodeLookup(barcode) {
+exports.barcodeLookup = function(barcode) {
     var options = {
         barcode: barcode
     }
@@ -26,7 +26,7 @@ function barcodeLookup(barcode) {
     return getRequest("/api/barcodeLookup", options)
 }
 
-function findRecipes(ingredients) {
+exports.findRecipes = function(ingredients) {
     var options = {
         ingredients: ingredients.join()
     }

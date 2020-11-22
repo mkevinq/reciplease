@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Ingredients from './components/Ingredients';
 import ScanBarcode from './components/ScanBarcode';
 import ScanFood from './components/ScanFood';
@@ -5,10 +6,24 @@ import UploadBarcode from './components/UploadBarcode';
 import LiveCamera from './components/LiveCamera';
 import './App.css';
 import logo from './assets/reciplease-logo.png';
+import TopCollection from './components/TopCollection';
+import reciplease from "recipleaseBackend.js";
 
 // need to create a display recipes function to make a <Recipe> card for each recipe
 
 function App() {
+  const [ingredients, setIngredients] = useState([]);
+
+  function barcodeLookup(code) {
+    reciplease.barcodeLookup(code)
+    .then((response) => {
+      setIngredients(ingredients.concat(response.data.ingredients))
+    })
+    .catch((error) => {
+      console.log("lmao1");
+    })
+  }
+
   return (
     <div className="App">
       <div className="content">
@@ -21,7 +36,7 @@ function App() {
             <div class="leftCollection">
                 <p>Welcome to <i>reciplease</i>. Start finding aweseome recipes today!</p>
                 <div class="buttonCollection">
-                    <UploadBarcode/>
+                  <UploadBarcode onButtonClick={barcodeLookup}/>
                     <div class='divider'/>
                     <button>Number 2</button>
                     <div class='divider'/>
@@ -30,7 +45,7 @@ function App() {
                 <textarea id='ingredients'>
                 </textarea>
             </div>
-            <LiveCamera/>
+            <LiveCamera onBarcodeDetection={barcodeLookup}/>
         </div>
 
         {/*Everything below the 'top collection'*/}
@@ -38,7 +53,7 @@ function App() {
 
       <div className="banner">
         <div className="logo-div">
-          <img className="logo" src={logo}></img>
+          <img className="logo" src={logo} alt=""></img>
           <h1>Reciplease</h1>
         </div>
 
