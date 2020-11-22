@@ -6,7 +6,9 @@ import LiveCamera from './components/LiveCamera';
 import './App.css';
 import logo from './assets/reciplease-logo.png';
 import reciplease from "./recipleaseBackend.js";
+import makeQuagga from './MakeQuagga.js';
 import Quagga from 'quagga';
+
 
 // need to create a display recipes function to make a <Recipe> card for each recipe
 
@@ -41,8 +43,10 @@ function App() {
       if(result && result.codeResult) { //The first result is always NULL (not sure why though)
         console.log("result", result.codeResult.code);
         barcodeLookup(result.codeResult.code);
+        makeQuagga();
       } else {
         console.log("not detected");
+        makeQuagga();
       }
     });
   }
