@@ -16,8 +16,8 @@ function Recipe(props) {
         <div className="recipe-card">
             <img src={props.image} alt="" class="food"></img>
             <h1>{props.title}</h1>
-            <p>{props.ingredients}</p>
-            <a href={props.link}>See the full recipe here!</a>
+            <p className="ingredient-list"><strong>Ingredient(s): </strong>{props.ingredients}</p>
+            <a className="recipe-link" href={props.link}>See the full recipe here!</a>
         </div>
     )
 }
