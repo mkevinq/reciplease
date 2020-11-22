@@ -130,17 +130,17 @@ function App() {
         </div>
 
         {/*Everything below the 'top collection'*/}
-        <div className="banner">
-          <div className="logo-div">
-            <img className="logo" src={logo} alt=""></img>
-            <h1>Reciplease</h1>
-          </div>
-        </div>
 
         <div className="recipes">
           {recipes.map((recipe) => (<Recipe image={recipe.image} title={recipe.title} link={recipe.sourceUrl} />))}
         </div>
       </div>
+      <div className="banner">
+          <div className="logo-div">
+            <img className="logo" src={logo} alt=""></img>
+            <h1>Reciplease</h1>
+          </div>
+        </div>
     </div>
   );
 }
