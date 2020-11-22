@@ -1,0 +1,17 @@
+.recipes {
+    border: solid black;
+    border-radius: 1em;
+    margin: 2em;
+    padding: 2em;
+    display: inline-block;
+    min-width: 24vw;
+}
+
+.food {
+    width: 100%;
+    max-width: 20vh;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
