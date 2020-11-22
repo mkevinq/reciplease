@@ -7,7 +7,7 @@ import numpy as np
 
 from io import BytesIO
 from flask import Flask, request, jsonify
-from getKey import rapidAPI, IEspoonacular
+# from getKey import rapidAPI, IEspoonacular
 
 import tensorflow as tf
 from tensorflow import keras
@@ -28,35 +28,40 @@ process: user uploads pic or barcode --> those are scanned and the proper food i
 def barcode_lookup(barcode):
     url = "https://barcode-monster.p.rapidapi.com/" + barcode
     headers = {
-        'x-rapidapi-key': rapidAPI,
+        'x-rapidapi-key': os.environ.get("RAPIDAPI_KEY"),
         'x-rapidapi-host': "barcode-monster.p.rapidapi.com"
     }
     response = requests.request("GET", url, headers=headers)
     if response.status_code == 200:
         productInfo = response.json()
-        return productInfo["description"]
+        return jsonify(ingredients=detect_ingredients(productInfo["description"]))
     else:
-        return "Not found"
+        return jsonify(message="Error", status=response.status_code)
 
 @app.route("/api/findRecipes", methods=["GET"])
 def find_recipes():
     payload = {
         "ingredients": request.args.get("ingredients"),
-        "number": 10,
-        "apiKey": IEspoonacular, #os.environ.get("SPOONACULAR_API_KEY"),
+        "number": 3,
+        "apiKey": os.environ.get("SPOONACULAR_API_KEY"),
         "ignorePantry": "true"
     }
 
     r = requests.get("https://api.spoonacular.com/recipes/findByIngredients", params=payload)
-    return r.json()
 
-@app.route("/api/detectIngredients/<productName>", methods=["GET"])
+    recipes = []
+
+    for recipe in r.json():
+        recipes.append(get_recipe(recipe["id"]))
+
+    return jsonify(recipes=recipes)
+
 def detect_ingredients(productName):
     url = "https://api.spoonacular.com/food/detect"
     headers = {
         'content-type': 'application/x-www-form-urlencoded'
     }
-    payload = "text=" + urllib.parse.quote(productName.lower()) + "&apiKey=" + IEspoonacular
+    payload = "text=" + urllib.parse.quote(productName.lower()) + "&apiKey=" + os.environ.get("SPOONACULAR_API_KEY")
     response = requests.request('POST', url, headers=headers, params=payload)
 
     if response.status_code == 200:
@@ -95,19 +100,11 @@ def detect_ingredients_in_image():
 
     return jsonify(predictions=pred_processed)
     
-
-@app.route("/api/getRecipe/<id>", methods=["GET"])
 def get_recipe(r_id):
-    url = 'https://api.spoonacular.com/recipes/' + str(r_id) + '/information/?includeNutrition=false&apiKey=' + IEspoonacular
-    print(url)
+    url = 'https://api.spoonacular.com/recipes/' + str(r_id) + '/information/?includeNutrition=false&apiKey=' + os.environ.get("SPOONACULAR_API_KEY")
     response = requests.request("GET", url)
     if response.status_code == 200:
-        recipeInfo = response.json()
-        link = recipeInfo['sourceUrl']
-        ingredients = []
-        for ingredient in recipeInfo['extendedIngredients']:
-            ingredients.append(ingredient['name'])
-        return {'link': link, 'ingredients': ingredients}
+        return response.json()
     else:
         return 'No link'
 
