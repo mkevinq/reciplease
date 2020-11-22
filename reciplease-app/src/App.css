@@ -54,7 +54,7 @@
 
 .leftCollection {
   text-align: left;
-  padding-right: 2.5vw;
+  margin-right: 5em;
 }
 
 .button, .file-upload {
